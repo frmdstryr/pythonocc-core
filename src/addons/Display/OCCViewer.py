@@ -71,7 +71,11 @@ def get_color_from_name(color_name):
     color_name is the color name, case insensitive.
     '''
     enum_name = 'Quantity_NOC_%s' % color_name.upper()
-    if enum_name in globals():
+    if color_name.startswith('#'):
+        return color(r=int(color_name[1:3],16)/255.0,
+                              g=int(color_name[3:5],16)/255.0,
+                              b=int(color_name[5:7],16)/255.0)
+    elif enum_name in globals():
         color_num = globals()[enum_name]
         return Quantity_Color(color_num)
     elif enum_name+'1' in globals():
